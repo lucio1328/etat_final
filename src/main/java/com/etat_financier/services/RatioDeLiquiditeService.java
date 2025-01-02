@@ -46,4 +46,46 @@ public class RatioDeLiquiditeService {
             return "Le ratio de liquidité générale est supérieur à 2. Cela pourrait indiquer une gestion prudente des liquidités ou une utilisation inefficace des ressources.";
         }
     }
+
+    public RatioDeLiquiditeDTO getRatioDeLiquiditeReduite(int annee) {
+        List<Ecriture> actifsCourants = ecritureService.getEcrituresByType("Actif courant", annee);
+
+        List<Ecriture> stocks = ecritureService.getEcrituresByCompte("3%", annee);
+
+        List<Ecriture> passifsCourants = ecritureService.getEcrituresByType("Passif courant", annee);
+
+        BigDecimal totalActifsCourants = actifsCourants.stream()
+                .map(Ecriture::getMontant)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalStocks = stocks.stream()
+                .map(Ecriture::getMontant)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalPassifsCourants = passifsCourants.stream()
+                .map(Ecriture::getMontant)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (totalPassifsCourants.compareTo(BigDecimal.ZERO) == 0) {
+            throw new IllegalArgumentException("Le total des passifs courants est nul pour l'année " + annee);
+        }
+
+        BigDecimal liquiditeReduite = totalActifsCourants.subtract(totalStocks);
+
+        double ratio = liquiditeReduite.divide(totalPassifsCourants, 2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+        String interpretation = interpretRatioDeLiquiditeReduite(ratio);
+
+        return new RatioDeLiquiditeDTO(ratio, interpretation);
+    }
+
+    private String interpretRatioDeLiquiditeReduite(double ratio) {
+        if (ratio >= 1.5) {
+            return "La liquidité réduite est satisfaisante.";
+        } else if (ratio >= 1) {
+            return "La liquidité réduite est acceptable, mais pourrait être améliorée.";
+        } else {
+            return "La liquidité réduite est insuffisante.";
+        }
+    }
 }
