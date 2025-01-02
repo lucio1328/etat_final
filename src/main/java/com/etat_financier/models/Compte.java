@@ -20,6 +20,10 @@ public class Compte {
     @Column(name = "id", nullable = false)
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
+    private TypeCompte typeCompte;
+
     public int getNumeroCompte() {
         return numeroCompte;
     }
@@ -50,6 +54,14 @@ public class Compte {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public TypeCompte getTypeCompte() {
+        return typeCompte;
+    }
+    
+    public void setTypeCompte(TypeCompte typeCompte) {
+        this.typeCompte = typeCompte;
     }
 
     @Override

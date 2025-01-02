@@ -28,6 +28,14 @@ public class Ecriture {
     @Column(name = "id_2", nullable = false)
     private int id2;
 
+    @ManyToOne
+    @JoinColumn(name = "numero_compte", referencedColumnName = "numero_compte", insertable = false, updatable = false)
+    private Compte compte;
+
+    @ManyToOne
+    @JoinColumn(name = "id_2", referencedColumnName = "id", insertable = false, updatable = false)
+    private Exercice exercice;
+
     public int getId() {
         return id;
     }
@@ -74,6 +82,22 @@ public class Ecriture {
 
     public void setId2(int id2) {
         this.id2 = id2;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+    
+    public void setCompte(Compte compte) {
+        this.compte = compte;
+    }    
+
+    public Exercice getExercice() {
+        return exercice;
+    }
+    
+    public void setExercice(Exercice exercice) {
+        this.exercice = exercice;
     }
 
     @Override
