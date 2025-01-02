@@ -19,4 +19,9 @@ public class RatioLiquiditeController {
     public RatioDeLiquiditeDTO getRatioDeLiquiditeGenerale(@RequestParam int annee) {
         return ratioService.getRatioDeLiquiditeGeneraleAvecInterpretation(annee);
     }
+
+    @GetMapping("/ratio_de_liquidite_reduite")
+    public RatioDeLiquiditeDTO getRatioDeLiquiditeReduite(@RequestParam int annee) {
+        return ratioService.getRatioDeLiquiditeReduite(annee);
+    }
 }

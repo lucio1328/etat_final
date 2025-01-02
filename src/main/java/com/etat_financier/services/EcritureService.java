@@ -16,4 +16,8 @@ public class EcritureService {
     public List<Ecriture> getEcrituresByType(String type, int annee) {
         return ecritureRepository.findAllByCompteType(type, annee);
     }
+
+    public List<Ecriture> getEcrituresByCompte(String compte, int annee) {
+        return ecritureRepository.findAllByCompteType(compte, annee);
+    }
 }
