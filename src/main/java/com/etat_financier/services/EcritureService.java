@@ -20,4 +20,8 @@ public class EcritureService {
     public List<Ecriture> getEcrituresByCompte(String compte, int annee) {
         return ecritureRepository.findAllByCompteType(compte, annee);
     }
+
+    public List<Ecriture> getEcrituresByPrefixe(String prefix, int annee) {
+        return ecritureRepository.findByIntituleStartingWithAndAnnee(prefix, annee);
+    }
 }
