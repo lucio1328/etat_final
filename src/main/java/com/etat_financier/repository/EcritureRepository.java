@@ -34,4 +34,5 @@ public interface EcritureRepository extends JpaRepository<Ecriture, Integer> {
 
     @Query("SELECT SUM(e.montant) FROM Ecriture e JOIN e.typeOperation t WHERE t.type = :typeOperation")
     BigDecimal sumMontantByTypeOperation(@Param("typeOperation") String typeOperation);
+    
 }
