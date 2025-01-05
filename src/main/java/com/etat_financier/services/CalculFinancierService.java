@@ -49,7 +49,7 @@ public class CalculFinancierService {
 
     // Méthode pour calculer les charges financières (exemple approximatif)
     public BigDecimal calculerChargesFinancieres(int annee) {
-        List<Ecriture> chargesFinancieres = ecritureService.getEcrituresByType("Charge financière", annee);
+        List<Ecriture> chargesFinancieres = ecritureService.getEcrituresByType("Charge financiere", annee);
 
         return sumEcritures(chargesFinancieres);
     }
