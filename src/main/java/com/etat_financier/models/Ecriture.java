@@ -29,6 +29,18 @@ public class Ecriture {
     private int id2;
 
     @ManyToOne
+    @JoinColumn(name = "id_1", referencedColumnName = "id", insertable = false, updatable = false)
+    private TypeOperation typeOperation;
+
+    public TypeOperation getTypeOperation() {
+        return typeOperation;
+    }
+
+    public void setTypeOperation(TypeOperation typeOperation) {
+        this.typeOperation = typeOperation;
+    }
+
+    @ManyToOne
     @JoinColumn(name = "numero_compte", referencedColumnName = "numero_compte", insertable = false, updatable = false)
     private Compte compte;
 
